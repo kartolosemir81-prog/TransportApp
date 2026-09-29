@@ -1,0 +1,213 @@
+@model List<TransportApp.Models.RouteInfo>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-pink-500/20"></div>
+    <div class="absolute inset-0">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-primary/30 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="relative z-10 text-center px-4 animate-fade-in">
+        <div class="mb-8">
+            <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-primary to-secondary p-1">
+                <div class="w-full h-full rounded-full bg-white dark:bg-dark flex items-center justify-center">
+                    <i class="fas fa-bus text-5xl text-primary"></i>
+                </div>
+            </div>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+            <span class="gradient-text">Düzce Akçakoca</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            Servis Takip Sistemi | Taksi, Belediye Servisi, Minibüs
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="/Transport" class="px-8 py-3 bg-primary text-white rounded-full hover:bg-secondary transition-all transform hover:scale-105">
+                <i class="fas fa-bus mr-2"></i>Servisleri Gör
+            </a>
+            <a href="#map" class="px-8 py-3 border-2 border-primary text-primary rounded-full hover:bg-primary hover:text-white transition-all transform hover:scale-105">
+                <i class="fas fa-map-marked-alt mr-2"></i>Harita
+            </a>
+            <a href="/swagger" target="_blank" class="px-8 py-3 border-2 border-primary text-primary rounded-full hover:bg-primary hover:text-white transition-all transform hover:scale-105">
+                <i class="fas fa-code mr-2"></i>API Dokümantasyonu
+            </a>
+        </div>
+        
+        <div class="mt-12 flex justify-center space-x-6">
+            <a href="#" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-all transform hover:scale-110">
+                <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-all transform hover:scale-110">
+                <i class="fab fa-twitter text-xl"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#routes" class="text-gray-400 hover:text-primary transition-colors">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section id="map" class="py-20 px-4 bg-gray-100 dark:bg-gray-800/50">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">
+            <span class="gradient-text">Güzergah Haritası</span>
+        </h2>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <span class="flex items-center text-sm">
+                            <span class="w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+                            Akçakoca
+                        </span>
+                        <span class="flex items-center text-sm">
+                            <span class="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            Düzce
+                        </span>
+                        <span class="flex items-center text-sm">
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            Duraklar
+                        </span>
+                    </div>
+                    <span class="text-sm text-gray-500">
+                        <i class="fas fa-road mr-1"></i>Mesafe: ~45 km | Süre: ~45-60 dk
+                    </span>
+                </div>
+            </div>
+            <div class="h-96">
+                <iframe 
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=30.95%2C40.85%2C31.25%2C41.05&layer=mapnik&marker=40.95%2C31.10" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen 
+                    loading="lazy">
+                </iframe>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-green-500 mr-2"></i>
+                        <span>Akçakoca Otogar</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-yellow-500 mr-2"></i>
+                        <span>Çaylı</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-yellow-500 mr-2"></i>
+                        <span>Düzce Otogar</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+                        <span>Düzce Merkez</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Routes Section -->
+<section id="routes" class="py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">
+            <span class="gradient-text">Aktif Servisler</span>
+        </h2>
+        
+        @if (Model.Any())
+        {
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach (var route in Model)
+                {
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                    @(route.VehicleType == "Taksi" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300" :
+                                      route.VehicleType == "Belediye Servisi" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300" :
+                                      "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300")">
+                                    <i class="fas @(route.VehicleType == "Taksi" ? "fa-taxi" : route.VehicleType == "Belediye Servisi" ? "fa-bus" : "fa-shuttle-van") mr-1"></i>
+                                    @route.VehicleType
+                                </span>
+                                <span class="text-sm text-gray-500">
+                                    <i class="fas fa-clock mr-1"></i>@route.DepartureTime
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">@route.RouteName</h3>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center text-sm">
+                                    <i class="fas fa-map-marker-alt text-green-500 mr-2 w-4"></i>
+                                    <span>@route.StartPoint</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <i class="fas fa-flag-checkered text-red-500 mr-2 w-4"></i>
+                                    <span>@route.EndPoint</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                                <span><i class="fas fa-sync-alt mr-1"></i>@route.Frequency</span>
+                                @if (route.Price.HasValue)
+                                {
+                                    <span class="font-semibold text-primary">@route.Price.Value.ToString("C2")</span>
+                                }
+                            </div>
+                            <a href="/Transport/Details/@route.Id" class="block w-full py-2 text-center bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+                                <i class="fas fa-info-circle mr-2"></i>Detayları Gör
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center text-gray-500 py-12">
+                <i class="fas fa-bus text-6xl mb-4"></i>
+                <p class="text-xl">Henüz servis eklenmemiş.</p>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Info Section -->
+<section class="py-20 px-4 bg-gray-100 dark:bg-gray-800/50">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16">
+            <span class="gradient-text">Güzergah Bilgileri</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                    <i class="fas fa-road text-2xl text-blue-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Mesafe</h3>
+                <p class="text-gray-500">Akçakoca - Düzce arası yaklaşık 45 km</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 mx-auto rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
+                    <i class="fas fa-clock text-2xl text-green-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Süre</h3>
+                <p class="text-gray-500">Ortalama 45-60 dakika</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
+                    <i class="fas fa-map-signs text-2xl text-purple-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Duraklar</h3>
+                <p class="text-gray-500">Akçakoca Otogar, Çaylı, Düzce Otogar</p>
+            </div>
+        </div>
+    </div>
+</section>

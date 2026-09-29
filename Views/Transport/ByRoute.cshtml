@@ -1,0 +1,54 @@
+@model List<TransportApp.Models.RouteInfo>
+@{
+    ViewData["Title"] = ViewBag.RouteName;
+}
+
+<div class="min-h-screen py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+        <a href="/Transport" class="inline-flex items-center text-primary hover:underline mb-6">
+            <i class="fas fa-arrow-left mr-2"></i>Tüm Servisler
+        </a>
+
+        <h1 class="text-3xl font-bold mb-8">
+            <i class="fas fa-route mr-3 text-primary"></i>@ViewBag.RouteName
+        </h1>
+
+        @if (Model.Any())
+        {
+            <div class="space-y-4">
+                @foreach (var route in Model)
+                {
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 flex items-center justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                    @(route.VehicleType == "Taksi" ? "bg-yellow-100 text-yellow-700" :
+                                      route.VehicleType == "Belediye Servisi" ? "bg-blue-100 text-blue-700" :
+                                      "bg-green-100 text-green-700")">
+                                    @route.VehicleType
+                                </span>
+                                <span class="text-sm text-gray-500">@route.PlateNumber</span>
+                            </div>
+                            <p class="font-semibold">@route.StartPoint → @route.EndPoint</p>
+                            <p class="text-sm text-gray-500">
+                                <i class="fas fa-clock mr-1"></i>@route.DepartureTime - @route.ArrivalTime
+                                <span class="mx-2">|</span>
+                                <i class="fas fa-sync-alt mr-1"></i>@route.Frequency
+                            </p>
+                        </div>
+                        <a href="/Transport/Details/@route.Id" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            Detay
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-12 text-gray-500">
+                <i class="fas fa-bus text-6xl mb-4"></i>
+                <p>Bu güzergah için servis bulunamadı.</p>
+            </div>
+        }
+    </div>
+</div>

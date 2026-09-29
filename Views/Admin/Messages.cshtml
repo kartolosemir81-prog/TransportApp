@@ -1,0 +1,66 @@
+@model List<TransportApp.Models.ContactMessage>
+@{
+    ViewData["Title"] = "Mesajlar";
+}
+
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold">
+                <i class="fas fa-inbox mr-3 text-primary"></i>Mesajlar
+            </h1>
+            <a href="/Admin" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Admin Panel
+            </a>
+        </div>
+
+        <div class="space-y-4">
+            @foreach (var message in Model)
+            {
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 @(message.IsRead ? "" : "border-l-4 border-primary")">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h3 class="font-bold text-lg mr-4">@message.Subject</h3>
+                                @if (!message.IsRead)
+                                {
+                                    <span class="px-2 py-1 bg-primary text-white text-xs rounded-full">Yeni</span>
+                                }
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">
+                                <i class="fas fa-user mr-1"></i>@message.Name | 
+                                <i class="fas fa-envelope mr-1"></i>@message.Email | 
+                                <i class="fas fa-clock mr-1"></i>@message.SentAt.ToString("dd.MM.yyyy HH:mm")
+                            </p>
+                            <p class="text-gray-700 dark:text-gray-300">@message.Message</p>
+                        </div>
+                        <div class="flex space-x-2 ml-4">
+                            @if (!message.IsRead)
+                            {
+                                <form asp-action="MarkAsRead" method="post">
+                                    <input type="hidden" name="id" value="@message.Id" />
+                                    <button type="submit" class="p-2 text-green-500 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-lg transition-colors" title="Okundu olarak işaretle">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                            }
+                            <form asp-action="DeleteMessage" method="post" onsubmit="return confirm('Bu mesajı silmek istediğinize emin misiniz?');">
+                                <input type="hidden" name="id" value="@message.Id" />
+                                <button type="submit" class="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (!Model.Any())
+            {
+                <div class="text-center py-12 text-gray-500">
+                    <i class="fas fa-inbox text-4xl mb-4"></i>
+                    <p>Henüz mesaj yok.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
